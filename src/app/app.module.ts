@@ -17,7 +17,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 @NgModule({
   declarations: [
     AppComponent,
-    MyFridgeComponent
+    MyFridgeComponent,
     NavbarComponent,
     HeaderComponent,
     FooterComponent
