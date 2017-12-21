@@ -1,3 +1,62 @@
-<p>
-  my-fridge works!
-</p>
+<h3>Mon Frigo</h3>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Ingredients</th>
+      <th>Quantité</th>
+      <th>Unité</th>
+      <th>Date de peremption</th>
+      <th>Editer</th>
+      <th>Supprimer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let ingredient of ingredientList">
+      <td>{{ingredient.name}}</td>
+      <td>{{ingredient.quantity}}</td>
+      <td>{{ingredient.unity | uppercase}}</td>
+      <td>{{ingredient.peremptionDate | date: 'dd/MM/yyyy'}}</td>
+      <td><i class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#editModal" (click)='prepareForEditIngredient(ingredient)'></i></td>
+      <td><i class="glyphicon glyphicon-trash" (click)='removeIngredient(ingredient)'></i></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Modal Edit -->
+  <!-- Modal -->
+  <div class="modal fade" bsModal #editModal="bs-modal" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="editModal.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" *ngIf="ingredientToEdit">
+          <form>
+            <div class="form-group">
+              <label for="ingredientName">Nom :</label>
+              <input class="form-control" id="ingredientName" [(ngModel)]="ingredientToEdit.name" name="name">
+            </div>
+            <div class="form-group">
+                <label for="quantity">Quantité</label>
+                <input class="form-control" id="quantity" [(ngModel)]="ingredientToEdit.quantity" name="quantity">
+            </div>
+            <div class="form-group">
+                <label for="unity">Unité</label>
+                <input class="form-control" id="unity" [(ngModel)]="ingredientToEdit.unity" name="unity">
+            </div>
+            <div class="form-group">
+                <label for="peremptionDate">Date de peremption</label>
+                <input class="form-control" id="peremptionDate" [ngModel]="ingredientToEdit.peremptionDate | date: 'dd/MM/yyyy'" name="peremptionDate">
+            </div>  
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="editModal.hide()">Annuler</button>
+          <button type="button" class="btn btn-primary" (click)="editIngredient(ingredientToEdit)">Enregistrer</button>
+        </div>
+      </div>
+    </div>
+  </div>
