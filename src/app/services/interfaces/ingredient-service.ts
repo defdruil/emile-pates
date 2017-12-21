@@ -1,13 +1,15 @@
 import { Ingredient } from '../../models/ingredient';
 
 export interface IIngredientService {
-    addIngredient(ingredient: Ingredient);
+    addIngredient(ingredient: Ingredient): void;
 
-    removeIngredient(ingredient: Ingredient);
+    removeIngredient(ingredient: Ingredient): void;
 
-    editIngredient(ingredient: Ingredient);
+    editIngredient(ingredient: Ingredient): void;
 
-    getIngredientById(id: number);
+    getAllIngredients(): Ingredient[];
 
-    getIngredientByName(name: string);
+    getIngredientById(id: number): Ingredient;
+
+    getIngredientByName(name: string): Ingredient;
 }

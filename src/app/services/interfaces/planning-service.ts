@@ -1,11 +1,15 @@
 import { Planning } from '../../models/planning';
 
 export interface IPlanningService {
-    addPlanning(planning: Planning);
+    addPlanning(planning: Planning): void;
 
-    removePlanning(planning: Planning);
+    removePlanning(planning: Planning): void;
 
-    editPlanning(planning: Planning);
+    editPlanning(planning: Planning): void;
 
-    getPlanningById(id: number);
+    getAllPlannings(): Planning[];
+
+    getPlanningByDate(date: Date): Planning;
+
+    getPlanningById(id: number): Planning;
 }

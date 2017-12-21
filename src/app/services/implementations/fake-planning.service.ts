@@ -4,17 +4,51 @@ import { Planning } from '../../models/planning';
 
 @Injectable()
 export class FakePlanningService implements IPlanningService {
-  addPlanning(planning: Planning) {
-    throw new Error('Method not implemented.');
+
+  private plannings: Planning[]= [];
+
+  getAllPlannings(): Planning[] {
+    return this.plannings;
   }
-  removePlanning(planning: Planning) {
-    throw new Error('Method not implemented.');
+
+  addPlanning(planning: Planning): void {
+    planning.id = this.getAvailableId();
+    this.plannings.push(planning);
   }
-  editPlanning(planning: Planning) {
-    throw new Error('Method not implemented.');
+
+  removePlanning(planning: Planning): void {
+    this.plannings.splice(this.plannings.indexOf(this.getPlanningById(planning.id)), 1);
   }
-  getPlanningById(id: number) {
-    throw new Error('Method not implemented.');
+
+  editPlanning(planning: Planning): void {
+    this.plannings[this.plannings.indexOf(this.getPlanningById(planning.id))] = planning;
+  }
+
+  getPlanningByDate(date: Date): Planning {
+    let toReturn: Planning;
+    this.plannings.forEach((planning: Planning): void => {
+      if (planning.startingDay === date) {
+        toReturn = planning;
+      }
+    });
+    return toReturn;
+  }
+
+  getPlanningById(id: number): Planning {
+    let toReturn: Planning;
+    this.plannings.forEach((planning: Planning): void => {
+      if (planning.id === id) {
+        toReturn = planning;
+      }
+    });
+    return toReturn;
+  }
+
+  private getAvailableId(): number {
+    if (this.plannings.length === 0) {
+      return 1;
+    }
+    return (this.plannings[this.plannings.length - 1 ].id) + 1;
   }
 
   constructor() { }

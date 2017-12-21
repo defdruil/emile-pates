@@ -1,11 +1,13 @@
 import {Recipe } from '../../models/recipe';
 
 export interface IRecipeService {
-    addRecipe(recipe: Recipe);
+    addRecipe(recipe: Recipe): void;
 
-    removeRecipe(recipe: Recipe);
+    removeRecipe(recipe: Recipe): void;
 
-    editRecipe(recipe: Recipe);
+    editRecipe(recipe: Recipe): void;
 
-    getRecipe(recipe: Recipe);
+    getRecipeById(id: number): Recipe;
+
+    getAllRecipes(): Recipe[];
 }

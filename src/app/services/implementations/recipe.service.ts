@@ -4,16 +4,19 @@ import { Recipe } from '../../models/recipe';
 
 @Injectable()
 export class RecipeService implements IRecipeService {
-  addRecipe(recipe: Recipe) {
+  getAllRecipes(): Recipe[] {
     throw new Error('Method not implemented.');
   }
-  removeRecipe(recipe: Recipe) {
+  addRecipe(recipe: Recipe): void {
     throw new Error('Method not implemented.');
   }
-  editRecipe(recipe: Recipe) {
+  removeRecipe(recipe: Recipe): void {
     throw new Error('Method not implemented.');
   }
-  getRecipe(recipe: Recipe) {
+  editRecipe(recipe: Recipe): void {
+    throw new Error('Method not implemented.');
+  }
+  getRecipeById(id: number): Recipe {
     throw new Error('Method not implemented.');
   }
 

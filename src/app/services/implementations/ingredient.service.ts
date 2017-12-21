@@ -4,19 +4,22 @@ import { Ingredient } from '../../models/ingredient';
 
 @Injectable()
 export class IngredientService implements IIngredientService {
-  addIngredient(ingredient: Ingredient) {
+  getAllIngredients(): Ingredient[] {
     throw new Error('Method not implemented.');
   }
-  removeIngredient(ingredient: Ingredient) {
+  addIngredient(ingredient: Ingredient): void {
     throw new Error('Method not implemented.');
   }
-  editIngredient(ingredient: Ingredient) {
+  removeIngredient(ingredient: Ingredient): void {
     throw new Error('Method not implemented.');
   }
-  getIngredientById(id: number) {
+  editIngredient(ingredient: Ingredient): void {
     throw new Error('Method not implemented.');
   }
-  getIngredientByName(name: string) {
+  getIngredientById(id: number): Ingredient {
+    throw new Error('Method not implemented.');
+  }
+  getIngredientByName(name: string): Ingredient {
     throw new Error('Method not implemented.');
   }
 

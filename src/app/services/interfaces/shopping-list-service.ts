@@ -1,3 +1,5 @@
+import { Ingredient } from '../../models/ingredient';
+
 export interface IShoppingListService {
-    generateShoppingList();
+    getShoppingList(): Ingredient[];
 }
