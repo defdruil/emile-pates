@@ -3,7 +3,7 @@ import { IRecipeService } from '../interfaces/recipe-service';
 import { Recipe } from '../../models/recipe';
 
 @Injectable()
-export class RecipeService implements IRecipeService{
+export class RecipeService implements IRecipeService {
   addRecipe(recipe: Recipe) {
     throw new Error('Method not implemented.');
   }
