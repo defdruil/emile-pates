@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Ingredient } from '../../../models/ingredient';
-import { FridgeService } from '../../../services/interfaces/fridge-service';
+import { FridgeService } from '../../../services/implementations/fridge.service';
 
 @Component({
   selector: 'app-my-fridge',
@@ -15,7 +15,7 @@ export class MyFridgeComponent implements OnInit {
   peremptionDate: Date;
 
   ingredientList: Ingredient[];
-  constructor(@Inject('FridgeService') private fridgeService: FridgeService) {
+  constructor(private fridgeService: FridgeService) {
   }
 
   ngOnInit() {
@@ -23,6 +23,7 @@ export class MyFridgeComponent implements OnInit {
     ingredient = {id: this.id, name: this.name, quantity: this.quantity, unity: this.unity, peremptionDate: this.peremptionDate};
     // this.ingredientList.push(ingredient);
     this.fridgeService.addIngredient(ingredient);
+    this.fridgeService.removeIngredient(ingredient);
   }
 
   addIngredient(event: Event): void {

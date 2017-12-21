@@ -1,5 +1,7 @@
 import { Ingredient } from '../../models/ingredient';
 
-export interface FridgeService {
+export interface IFridgeService {
     addIngredient(ingredient: Ingredient);
+
+    removeIngredient(ingredient: Ingredient);
 }
