@@ -7,13 +7,16 @@ export class FakePlanningService implements IPlanningService {
 
   private plannings: Planning[]= [];
 
+  private newId = 1;
+
   getAllPlannings(): Planning[] {
     return this.plannings;
   }
 
   addPlanning(planning: Planning): void {
-    planning.id = this.getAvailableId();
+    planning.id = this.newId;
     this.plannings.push(planning);
+    this.newId ++;
   }
 
   removePlanning(planning: Planning): void {
@@ -44,12 +47,12 @@ export class FakePlanningService implements IPlanningService {
     return toReturn;
   }
 
-  private getAvailableId(): number {
-    if (this.plannings.length === 0) {
-      return 1;
-    }
-    return (this.plannings[this.plannings.length - 1 ].id) + 1;
-  }
+  // private getAvailableId(): number {
+  //   if (this.plannings.length === 0) {
+  //     return 1;
+  //   }
+  //   return (this.plannings[this.plannings.length - 1 ].id) + 1;
+  // }
 
   constructor() { }
 
