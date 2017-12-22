@@ -7,12 +7,15 @@ export class FakeRecipeService implements IRecipeService {
 
   private recipes: Recipe[] = [];
 
+  private newId = 1;
+
   getAllRecipes(): Recipe[] {
     return this.recipes;
   }
   addRecipe(recipe: Recipe): void {
-    recipe.id = this.getAvailableId();
+    recipe.id = this.newId;
     this.recipes.push(recipe);
+    this.newId++;
   }
   removeRecipe(recipe: Recipe): void {
     this.recipes.splice(this.recipes.indexOf(this.getRecipeById(recipe.id)), 1);
@@ -30,12 +33,12 @@ export class FakeRecipeService implements IRecipeService {
     return toReturn;
   }
 
-  private getAvailableId(): number {
-    if (this.recipes.length === 0) {
-      return 1;
-    }
-    return (this.recipes[this.recipes.length - 1 ].id) + 1;
-  }
+  // private getAvailableId(): number {
+  //   if (this.recipes.length === 0) {
+  //     return 1;
+  //   }
+  //   return (this.recipes[this.recipes.length - 1 ].id) + 1;
+  // }
 
   constructor() { }
 

@@ -8,9 +8,12 @@ export class FakeIngredientService implements IIngredientService {
 
   private ingredientsList: Ingredient[] = [];
 
+  private newId = 1;
+
   addIngredient(ingredient: Ingredient): void {
-    ingredient.id = this.getAvailableId();
+    ingredient.id = this.newId;
     this.ingredientsList.push(ingredient);
+    this.newId ++;
   }
 
   removeIngredient(ingredient: Ingredient): void {
@@ -45,12 +48,13 @@ export class FakeIngredientService implements IIngredientService {
     return toReturn;
   }
 
-  private getAvailableId(): number {
-    if (this.ingredientsList.length === 0) {
-      return 1;
-    }
-    return (this.ingredientsList[this.ingredientsList.length - 1 ].id) + 1;
-  }
+
+  // private getAvailableId(): number {
+  //   if (this.ingredientsList.length === 0) {
+  //     return 1;
+  //   }
+  //   return (this.ingredientsList[this.ingredientsList.length - 1 ].id) + 1;
+  // }
 
   constructor() { }
 
