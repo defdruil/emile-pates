@@ -19,32 +19,33 @@ export class MyFridgeComponent implements OnInit {
 
   ingredientList: Ingredient[];
   ingredientToEdit: Ingredient;
+  ingredientToAdd: Ingredient;
+  creationMode: boolean;
+  editionMode: boolean;
 
-  @ViewChild('editModal')
-  editModal: ModalDirective;
+  @ViewChild('editOrAddModal')
+  editOrAddModal: ModalDirective;
 
   constructor(private fridgeService: FridgeService) {
   }
 
   ngOnInit() {
     this.getIngredients();
-  }
-
-  addIngredient(event: Event): void {
-    let ingredient: Ingredient;
-    ingredient = {id: this.id, name: this.name, quantity: this.quantity, unity: this.unity, peremptionDate: this.peremptionDate};
-    this.fridgeService.addIngredient(ingredient);
+    this.creationMode = false;
+    this.editionMode = false;
   }
 
   prepareForEditIngredient(ingredient: Ingredient): void {
     this.ingredientToEdit = _.clone(ingredient);
     const name: string = this.ingredientToEdit.name;
-    this.editModal.show();
+    this.editionMode = true;
+    this.editOrAddModal.show();
   }
 
   editIngredient(ingredient: Ingredient): void {
     this.fridgeService.editIngredient(ingredient);
-    this.editModal.hide();
+    this.editionMode = false;
+    this.editOrAddModal.hide();
   }
 
   getIngredients(): Ingredient[] {
@@ -56,4 +57,15 @@ export class MyFridgeComponent implements OnInit {
     this.fridgeService.removeIngredient(ingredient);
   }
 
+  prepareForAddIngredient(): void {
+    this.ingredientToEdit = {id: 0, name: '', quantity: 0, unity: '', peremptionDate: new Date()};
+    this.creationMode = true;
+    this.editOrAddModal.show();
+  }
+
+  addIngredient(ingredient: Ingredient): void {
+    this.fridgeService.addIngredient(ingredient);
+    this.creationMode = false;
+    this.editOrAddModal.hide();
+  }
 }

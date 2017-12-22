@@ -5,13 +5,16 @@ import { Ingredient } from '../../models/ingredient';
 @Injectable()
 export class FakeFridgeService implements IFridgeService {
  private ingredientsList: Ingredient[] = [];
+ private newId = 1;
 
   removeIngredient(ingredient: Ingredient): void {
     this.ingredientsList.splice(this.ingredientsList.indexOf(this.getIngredientById(ingredient.id)), 1);
   }
 
   addIngredient(ingredient: Ingredient): void {
-    console.log('ajout');
+    ingredient.id = this.newId;
+    this.ingredientsList.push(ingredient);
+    this.newId ++;
   }
 
   getFridgeIngredients(): Ingredient[] {
