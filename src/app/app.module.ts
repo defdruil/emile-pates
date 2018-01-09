@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule} from '@angular/forms';
+import { Routes } from '@angular/router';
 
 
 import { AppComponent } from './app.component';
@@ -20,11 +21,24 @@ import { PlanningService } from './services/implementations/planning.service';
 import { FakePlanningService } from './services/implementations/fake-planning.service';
 import { RecipeService } from './services/implementations/recipe.service';
 import { FakeRecipeService } from './services/implementations/fake-recipe.service';
+import { RouterModule } from '@angular/router';
+import { ShoppingListComponent } from './components/content/shopping-list/shopping-list.component';
+import { PlanningComponent } from './components/content/planning/planning.component';
+import { RecipeComponent } from './components/content/recipe/recipe.component';
+const appRoutes: Routes = [
+  { path: '', component: MyFridgeComponent },
+  { path: 'shopping-list', component: ShoppingListComponent},
+  { path: 'recipes', component: RecipeComponent},
+  { path: 'planning', component: PlanningComponent}
+];
 
 @NgModule({
   declarations: [
     AppComponent,
     MyFridgeComponent,
+    ShoppingListComponent,
+    RecipeComponent,
+    PlanningComponent,
     NavbarComponent,
     HeaderComponent,
     FooterComponent
@@ -34,7 +48,8 @@ import { FakeRecipeService } from './services/implementations/fake-recipe.servic
     FormsModule,
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [
     {provide: FridgeService, useClass: FakeFridgeService},
@@ -42,6 +57,6 @@ import { FakeRecipeService } from './services/implementations/fake-recipe.servic
     {provide: PlanningService, useClass: FakePlanningService},
     {provide: RecipeService, useClass: FakeRecipeService}
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
