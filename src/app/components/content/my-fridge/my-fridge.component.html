@@ -13,10 +13,10 @@
   </thead>
   <tbody>
     <tr *ngFor="let ingredient of ingredientList">
-      <td>{{ingredient.name}}</td>
-      <td>{{ingredient.quantity}}</td>
-      <td>{{ingredient.unity | uppercase}}</td>
-      <td>{{ingredient.peremptionDate | date: 'dd/MM/yyyy'}}</td>
+      <td [ngClass]="{'red': comparePeremptionDate(ingredient.peremptionDate)}">{{ingredient.name}}</td>
+      <td [ngClass]="{'red': comparePeremptionDate(ingredient.peremptionDate)}">{{ingredient.quantity}}</td>
+      <td [ngClass]="{'red': comparePeremptionDate(ingredient.peremptionDate)}">{{ingredient.unity | uppercase}}</td>
+      <td [ngClass]="{'red': comparePeremptionDate(ingredient.peremptionDate)}"><i *ngIf="comparePeremptionDate(ingredient.peremptionDate)" class="glyphicon glyphicon-warning-sign"></i>{{ingredient.peremptionDate | date: 'dd/MM/yyyy'}}<i *ngIf="comparePeremptionDate(ingredient.peremptionDate)" class="glyphicon glyphicon-warning-sign"></i></td>
       <td><i class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#editOrAddModal" (click)='prepareForEditIngredient(ingredient)'></i></td>
       <td><i class="glyphicon glyphicon-trash" (click)='removeIngredient(ingredient)'></i></td>
     </tr>
@@ -50,7 +50,7 @@
             </div>
             <div class="form-group">
                 <label for="peremptionDate">Date de peremption</label>
-                <input class="form-control" id="peremptionDate" type="date" [ngModel]="ingredientToEdit.peremptionDate | date: 'dd/MM/yyyy'" name="peremptionDate">
+                <input class="form-control" id="peremptionDate" type="date" [ngModel]="ingredientToEdit.peremptionDate | date: 'dd/MM/yyyy'" (ngModelChange)="test($event)" name="peremptionDate">
             </div>  
           </form>
         </div>

@@ -68,4 +68,24 @@ export class MyFridgeComponent implements OnInit {
     this.creationMode = false;
     this.editOrAddModal.hide();
   }
+
+  comparePeremptionDate(peremptionDate): boolean {
+    const today: Date = new Date();
+    peremptionDate.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+    if (today > peremptionDate) {
+      return true;
+    }else if (today < peremptionDate) {
+      return false;
+    }else {
+      // cas ou la date du jour et la date de peremption son egaux, le '===' ne fonctionne pas
+      return false;
+    }
+  }
+
+  test(event: Event): void {
+    console.log(event);
+    const newDate: Date = new Date(event.toString());
+    this.ingredientToEdit.peremptionDate = newDate;
+  }
 }

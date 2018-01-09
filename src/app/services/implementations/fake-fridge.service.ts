@@ -36,9 +36,9 @@ export class FakeFridgeService implements IFridgeService {
   }
 
   constructor() {
-    const d = new Date('January 01, 2018');
-    const d2 = new Date('February 02, 2017');
-    const d3 = new Date('June 12, 2015');
+    const d = new Date('January 01, 2017');
+    const d2 = new Date('February 02, 2018');
+    const d3 = new Date('December 24, 2017');
     const beurre: Ingredient = {id: 0, name: 'beurre', quantity: 250, unity: 'g', peremptionDate: d};
     const pates: Ingredient = {id: 1, name: 'pates', quantity: 500, unity: 'g', peremptionDate: d};
     const creme: Ingredient = {id: 2, name: 'creme fraiche', quantity: 25, unity: 'cl', peremptionDate: d2};
