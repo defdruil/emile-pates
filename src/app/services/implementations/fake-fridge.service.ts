@@ -39,11 +39,12 @@ export class FakeFridgeService implements IFridgeService {
     const d = new Date('January 01, 2017');
     const d2 = new Date('February 02, 2018');
     const d3 = new Date('December 24, 2017');
-    const beurre: Ingredient = {id: 0, name: 'beurre', quantity: 250, unity: 'g', peremptionDate: d};
-    const pates: Ingredient = {id: 1, name: 'pates', quantity: 500, unity: 'g', peremptionDate: d};
+    const beurre: Ingredient = {id: 0, name: 'oeufs', quantity: 2, unity: 'number', peremptionDate: d2};
+    const pates: Ingredient = {id: 1, name: 'pates', quantity: 500, unity: 'g', peremptionDate: d2};
     const creme: Ingredient = {id: 2, name: 'creme fraiche', quantity: 25, unity: 'cl', peremptionDate: d2};
-    const lardons: Ingredient = {id: 3, name: 'lardons', quantity: 250, unity: 'g', peremptionDate: d3};
+    const lardons: Ingredient = {id: 3, name: 'lardons', quantity: 250, unity: 'g', peremptionDate: d2};
+    const ail: Ingredient = {id: 4, name: 'Ail', quantity: 5, unity: 'g', peremptionDate: d2};
 
-    this.ingredientsList.push(beurre, pates, creme, lardons);
+    this.ingredientsList.push(beurre, pates, creme, lardons, ail);
   }
 }

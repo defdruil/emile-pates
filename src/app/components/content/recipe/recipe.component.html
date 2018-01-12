@@ -1,3 +1,93 @@
-<p>
-  recipe works!
-</p>
+<h3 (click)='prepareForAddRecipe()'><i class="glyphicon glyphicon-plus"></i> Ajouter une recette</h3>
+<div class="col-md-4" *ngFor="let recipe of recipesList">
+  <div class="card" style="width: 18rem;">
+    <img class="card-img-top imgSize" src={{recipe.imgPath}} alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{recipe.name}}</h5>
+      <i class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#editOrAddModal" (click)='prepareForEditRecipe(recipe)'></i>
+    </div>
+    <div>
+      <ul class="list-group list-group-flush">
+        <li *ngFor ="let ingredient of recipe.ingredientList" class="list-group-item">
+          <div *ngIf="(ingredient.unity | uppercase) != 'NUMBER'">{{ingredient.name}} {{ingredient.quantity}} {{ingredient.unity | uppercase}}</div>
+          <div *ngIf="(ingredient.unity | uppercase) == 'NUMBER'">{{ingredient.quantity}} {{ingredient.name}}</div>
+        </li>
+      </ul>
+      <p class="card-text">{{recipe.description}}</p>
+    </div>
+    <div class="card-body">
+       <button class="btn btn-primary" [ngClass]="{'disabled': !canRealizeRecipe(recipe)}" [disabled]="!canRealizeRecipe(recipe)" (click)="realizeRecipe(recipe)">Faire la cuisine !</button>
+     </div>
+  </div>
+</div>
+
+<!-- Modal Edit -->
+  <!-- Modal -->
+  <div class="modal fade" bsModal #editOrAddModal="bs-modal" id="editOrAddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editOrAddModalLabel">Edition de la recette</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="editOrAddModal.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" *ngIf="recipeToEdit">
+            <form>
+              <div class="form-group">
+                <label for="recipeName">Nom :</label>
+                <input class="form-control" id="recipeName" [(ngModel)]="recipeToEdit.name" name="recipeName">
+              </div>
+              <div class="form-group">
+                  <label for="recipeDescription">description</label>
+                  <textarea class="form-control" id="description" [(ngModel)]="recipeToEdit.description" name="recipeDescription"></textarea>
+              </div>
+              <div class="form-group">
+                  <label for="recipeImgPath">url de l'image</label>
+                  <textarea class="form-control" id="imgPath" [(ngModel)]="recipeToEdit.imgPath" name="recipeImgPath"></textarea>
+              </div>
+              <div class="form-group">
+                <h4 (click)="addNewIngredient()"><i class="glyphicon glyphicon-plus"></i> Ajouter un ingredient</h4>
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Ingredients</th>
+                      <th>Quantité</th>
+                      <th>Unité</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let ingredient of recipeToEdit.ingredientList; let index = index">
+                      <td>
+                        <div class="form-group">
+                          <label for="ingredientName">Nom Ingredient:</label>
+                          <input class="form-control" id="'ingredientName' + index" [(ngModel)]=ingredient.name [name]="'ingredientName' + index">
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-group">
+                          <label for="quantity">Quantité</label>
+                          <input class="form-control" id="'ingredientQuantity' + index" [(ngModel)]="ingredient.quantity" [name]="'ingredientQuantity' + index">
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-group">
+                          <label for="unity">Unité</label>
+                          <input class="form-control" id="'ingredientUnity' + index" [(ngModel)]="ingredient.unity" [name]="'ingredientUnity' + index">
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>  
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="editOrAddModal.hide()">Annuler</button>
+            <button *ngIf="editionMode" type="button" class="btn btn-primary" (click)="editRecipe(recipeToEdit)">Enregistrer</button>
+            <button *ngIf="creationMode" type="button" class="btn btn-primary" (click)="addRecipe(recipeToEdit)">Ajouter</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
