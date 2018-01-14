@@ -1,0 +1,10 @@
+.registeredPlanning:hover{
+    cursor: pointer;
+}
+.planningAction{
+    margin-left: 10px;
+}
+
+.planningAction:hover{
+    cursor: pointer;
+}

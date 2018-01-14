@@ -47,11 +47,7 @@
             <div class="form-group">
                 <label for="unity">Unité</label>
                 <input class="form-control" id="unity" [(ngModel)]="ingredientToEdit.unity" name="unity">
-            </div>
-            <div class="form-group">
-                <label for="peremptionDate">Date de peremption</label>
-                <input class="form-control" id="peremptionDate" type="date" [ngModel]="ingredientToEdit.peremptionDate | date: 'dd/MM/yyyy'" (ngModelChange)="test($event)" name="peremptionDate">
-            </div>  
+            </div> 
           </form>
         </div>
         <div class="modal-footer">

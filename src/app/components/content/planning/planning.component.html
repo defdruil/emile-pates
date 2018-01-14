@@ -1,3 +1,38 @@
-<p>
-  planning works!
-</p>
+<input type="text" class="form-control" [(ngModel)]="this.newPlanning.name"/>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <td *ngFor="let meal of this.newPlanning.meals">{{meal.day}}</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td *ngFor="let meal of this.newPlanning.meals">
+        <select class="form-control" [(ngModel)]="meal.breakfast" name="breakfast">
+          <option *ngFor="let recipe of this.recipesList" [ngValue]="recipe">{{recipe.name}}</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+        <td *ngFor="let meal of this.newPlanning.meals">
+          <select class="form-control" [(ngModel)]="meal.lunch" name="lunch">
+            <option *ngFor="let recipe of this.recipesList" [ngValue]="recipe">{{recipe.name}}</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+          <td *ngFor="let meal of this.newPlanning.meals">
+            <select class="form-control" [(ngModel)]="meal.dinner" name="dinner">
+              <option *ngFor="let recipe of this.recipesList" [ngValue]="recipe">{{recipe.name}}</option>
+            </select>
+          </td>
+        </tr>
+  </tbody>
+</table>
+<button  *ngIf="!this.editing" class="btn btn-primary" (click)="registerPlanning(newPlanning)">Valider la semaine</button>
+<button *ngIf="this.editing" class="btn btn-primary" (click)="editPlanning(newPlanning)">Modifier la semaine</button>
+<button class="btn btn-primary" (click)="setShoppingList(newPlanning)">Generer la liste de courses de cette semaine</button>
+<h4>Mes plannings :</h4>
+<ul class="list-group">
+  <li class="list-group-item registeredPlanning" *ngFor="let planning of this.planningList" (click)="prepareForEditPlanning(planning)">{{planning.name}} <i (click)="prepareForEditPlanning(planning)" class="glyphicon glyphicon-pencil planningAction"></i></li>
+</ul>

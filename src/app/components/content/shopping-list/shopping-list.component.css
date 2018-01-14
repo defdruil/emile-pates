@@ -1,0 +1,6 @@
+.action{
+    margin-left: 10px;
+}
+.action:hover {
+    cursor: pointer !important;
+}

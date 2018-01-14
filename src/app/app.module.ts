@@ -25,6 +25,8 @@ import { RouterModule } from '@angular/router';
 import { ShoppingListComponent } from './components/content/shopping-list/shopping-list.component';
 import { PlanningComponent } from './components/content/planning/planning.component';
 import { RecipeComponent } from './components/content/recipe/recipe.component';
+import { ShoppingListService } from './services/implementations/shopping-list.service';
+import { FakeShoppingListService } from './services/implementations/fake-shopping-list.service';
 const appRoutes: Routes = [
   { path: '', component: MyFridgeComponent },
   { path: 'shopping-list', component: ShoppingListComponent},
@@ -55,7 +57,8 @@ const appRoutes: Routes = [
     {provide: FridgeService, useClass: FakeFridgeService},
     {provide: IngredientService, useClass: FakeIngredientService},
     {provide: PlanningService, useClass: FakePlanningService},
-    {provide: RecipeService, useClass: FakeRecipeService}
+    {provide: RecipeService, useClass: FakeRecipeService},
+    {provide: ShoppingListService, useClass: FakeShoppingListService}
   ],
   bootstrap: [AppComponent],
 })

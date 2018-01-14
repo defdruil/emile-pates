@@ -13,7 +13,16 @@ export class FakeFridgeService implements IFridgeService {
 
   addIngredient(ingredient: Ingredient): void {
     ingredient.id = this.newId;
-    this.ingredientsList.push(ingredient);
+    let find = false;
+    for (let i = 0; i < this.ingredientsList.length; i++) {
+      if ( ingredient.name.toLowerCase() === this.ingredientsList[i].name) {
+        this.ingredientsList[i].quantity = ingredient.quantity + this.ingredientsList[i].quantity;
+        find = true;
+      }
+    }
+    if (!find) {
+      this.ingredientsList.push(ingredient);
+    }
     this.newId ++;
   }
 
@@ -44,7 +53,7 @@ export class FakeFridgeService implements IFridgeService {
     const creme: Ingredient = {id: 2, name: 'creme fraiche', quantity: 25, unity: 'cl', peremptionDate: d2};
     const lardons: Ingredient = {id: 3, name: 'lardons', quantity: 250, unity: 'g', peremptionDate: d2};
     const ail: Ingredient = {id: 4, name: 'Ail', quantity: 5, unity: 'g', peremptionDate: d2};
-
-    this.ingredientsList.push(beurre, pates, creme, lardons, ail);
+    const fromage: Ingredient = {id: 5, name: 'Fromage de chevre', quantity: 250, unity: 'g', peremptionDate: d};
+    this.ingredientsList.push(beurre, pates, creme, lardons, ail, fromage);
   }
 }

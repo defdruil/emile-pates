@@ -34,13 +34,6 @@ export class FakeRecipeService implements IRecipeService {
     return toReturn;
   }
 
-  // private getAvailableId(): number {
-  //   if (this.recipes.length === 0) {
-  //     return 1;
-  //   }
-  //   return (this.recipes[this.recipes.length - 1 ].id) + 1;
-  // }
-
   constructor() {
     // Peremption Date
     const d = new Date('June 01, 2018');
@@ -75,6 +68,7 @@ export class FakeRecipeService implements IRecipeService {
     // tslint:disable-next-line:max-line-length
     const gateau: Recipe = {id: 1, name: 'Gateau Au Chocolat', ingredientList: [choco, sucre, farine, oeufsDessert, cremeLiquide], imgPath: gateauJpg, description: description1};
 
+    //const test: Recipe = {id: 0, name: 'test', ingredientList: [oeufs], imgPath: carboJpg, description: description2};
     this.recipes.push(patesCarbo, gateau);
   }
 

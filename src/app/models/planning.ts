@@ -2,15 +2,16 @@ import { Recipe } from './recipe';
 
 export interface Planning {
     id?: number;
+    name: string;
     meals: DailyMeal[];
     startingDay: Date;
 }
 
 export interface DailyMeal {
     day: Day;
-    breakfast: Recipe;
-    lunch: Recipe;
-    dinner: Recipe;
+    breakfast: any;
+    lunch: any;
+    dinner: any;
 }
 
 export enum Day {
@@ -19,6 +20,6 @@ export enum Day {
     Wednesday = 'Mercredi',
     Thursday = 'Jeudi',
     Friday = 'Vendredi',
-    Saturday = 'Saturday',
+    Saturday = 'Samedi',
     Sunday = 'Dimanche'
 }

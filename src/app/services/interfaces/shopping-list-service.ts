@@ -1,5 +1,5 @@
-import { Ingredient } from '../../models/ingredient';
+import { ShoppingList } from '../../models/shopping-list';
 
 export interface IShoppingListService {
-    getShoppingList(): Ingredient[];
+    getShoppingList(): ShoppingList[];
 }

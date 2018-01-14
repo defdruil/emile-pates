@@ -69,6 +69,7 @@ export class MyFridgeComponent implements OnInit {
     this.editOrAddModal.hide();
   }
 
+  // permet de savoir si un ingredient est périmé
   comparePeremptionDate(peremptionDate): boolean {
     const today: Date = new Date();
     peremptionDate.setHours(0, 0, 0, 0);
@@ -81,11 +82,5 @@ export class MyFridgeComponent implements OnInit {
       // cas ou la date du jour et la date de peremption son egaux, le '===' ne fonctionne pas
       return false;
     }
-  }
-
-  test(event: Event): void {
-    console.log(event);
-    const newDate: Date = new Date(event.toString());
-    this.ingredientToEdit.peremptionDate = newDate;
   }
 }

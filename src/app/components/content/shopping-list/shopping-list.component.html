@@ -1,3 +1,95 @@
-<p>
-  shopping-list works!
-</p>
+<h3>Mes Listes de Courses</h3>
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let shoppingList of this.myShoppingsList" (click)="prepareForEditShoppingList(shoppingList)">{{shoppingList.name}} <i (click)="prepareForEditShoppingList(shoppingList)" class="glyphicon glyphicon-pencil action"></i><i class="glyphicon glyphicon-trash action" (click)="deleteShoppingList(shoppingList)"></i></li>
+</ul>
+<div *ngIf="shoppingListToEdit">
+    <h4>Edition d'une liste de courses</h4>
+    <div (click)="prepareForAddIngredient()" class="action"><i class="glyphicon glyphicon-plus"></i>Ajouter un nouvel ingredient</div>
+    <input type="text" class="form-control" [(ngModel)]="shoppingListToEdit.name"/>
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <td></td>
+            <th>Ingredients</th>
+            <th>Quantité</th>
+            <th>Unité</th>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ingredient of this.shoppingListToEdit.ingredientList">
+            <td>
+                <input type="checkbox" class="custom-control-input" (change)="selectIngredient($event, ingredient)">
+            </td>
+            <td>{{ingredient.name}}</td>
+            <td>{{ingredient.quantity}}</td>
+            <td>{{ingredient.unity | uppercase}}</td>
+            <td (click)="deleteIngredient(ingredient)"><i class="glyphicon glyphicon-trash"></i></td>
+          </tr>
+        </tbody>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#confirmModal" (click)="showValidation()">Valider</button>
+      </table>
+</div>
+
+<!-- Modal AddIngredient -->
+  <!-- Modal -->
+  <div class="modal fade" bsModal #addIngredientModal="bs-modal" id="addIngredientModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addIngredientModalLabel">Ajout d'un ingredient</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="addIngredientModal.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="ingredientName">Nom :</label>
+              <input class="form-control" id="ingredientName" [(ngModel)]="this.newIngredient.name" name="name">
+            </div>
+            <div class="form-group">
+                <label for="quantity">Quantité</label>
+                <input class="form-control" id="quantity" [(ngModel)]="this.newIngredient.quantity" name="quantity">
+            </div>
+            <div class="form-group">
+                <label for="unity">Unité</label>
+                <input class="form-control" id="unity" [(ngModel)]="this.newIngredient.unity" name="unity">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="addIngredientModal.hide()">Annuler</button>
+          <button type="button" class="btn btn-primary" (click)="addIngredient(newIngredient)">Ajouter</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Modal Confirm -->
+  <!-- Modal -->
+<div class="modal fade" bsModal #confirmModal="bs-modal" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="confirmModallLabel">Validation de la liste de courses</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="confirmModal.hide()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>
+              Souhaitez vous enregistrer des modifications a cette liste de courses ? 
+              Valider certains achats ou tous ? 
+              Ou même supprimer la liste ?
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="confirmModal.hide()">Annuler</button>
+            <button type="button" class="btn btn-warning" (click)="editShoppingList(this.shoppingListToEdit)">Enregistrer les modifications</button>
+            <button type="button" class="btn btn-primary" (click)="addIngredientsToFridge()">Mes courses sont faites</button>
+            <button type="button" class="btn btn-success"(click)="addAllIngredientsToFridge()">Ajouter tout les ingredients et faire les courses</button>
+          </div>
+        </div>
+      </div>
+  </div>

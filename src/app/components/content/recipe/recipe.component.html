@@ -1,19 +1,22 @@
-<h3 (click)='prepareForAddRecipe()'><i class="glyphicon glyphicon-plus"></i> Ajouter une recette</h3>
+<h3 (click)='prepareForAddRecipe()' class="action"><i class="glyphicon glyphicon-plus"></i> Ajouter une recette</h3>
 <div class="col-md-4" *ngFor="let recipe of recipesList">
-  <div class="card" style="width: 18rem;">
+  <div class="card">
     <img class="card-img-top imgSize" src={{recipe.imgPath}} alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">{{recipe.name}}</h5>
-      <i class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#editOrAddModal" (click)='prepareForEditRecipe(recipe)'></i>
+    <div class="cardHeader">
+      <div class="card-title">{{recipe.name}}</div>
+      <div class="cardActions">
+          <i class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#editOrAddModal" (click)='prepareForEditRecipe(recipe)'></i>
+          <i class="glyphicon glyphicon-trash" (click)='removeRecipe(recipe)'></i>
+      </div>
     </div>
     <div>
       <ul class="list-group list-group-flush">
         <li *ngFor ="let ingredient of recipe.ingredientList" class="list-group-item">
-          <div *ngIf="(ingredient.unity | uppercase) != 'NUMBER'">{{ingredient.name}} {{ingredient.quantity}} {{ingredient.unity | uppercase}}</div>
-          <div *ngIf="(ingredient.unity | uppercase) == 'NUMBER'">{{ingredient.quantity}} {{ingredient.name}}</div>
+          <div *ngIf="(ingredient.unity | uppercase) != 'NUMBER'" [ngClass]="{'red': isIngredientAvailaible(ingredient)}">{{ingredient.name}} {{ingredient.quantity}} {{ingredient.unity | uppercase}}</div>
+          <div *ngIf="(ingredient.unity | uppercase) == 'NUMBER'" [ngClass]="{'red': isIngredientAvailaible(ingredient)}">{{ingredient.quantity}} {{ingredient.name}}</div>
         </li>
       </ul>
-      <p class="card-text">{{recipe.description}}</p>
+      <p class="card-text recipeDescription">{{recipe.description}}</p>
     </div>
     <div class="card-body">
        <button class="btn btn-primary" [ngClass]="{'disabled': !canRealizeRecipe(recipe)}" [disabled]="!canRealizeRecipe(recipe)" (click)="realizeRecipe(recipe)">Faire la cuisine !</button>
@@ -47,7 +50,7 @@
                   <textarea class="form-control" id="imgPath" [(ngModel)]="recipeToEdit.imgPath" name="recipeImgPath"></textarea>
               </div>
               <div class="form-group">
-                <h4 (click)="addNewIngredient()"><i class="glyphicon glyphicon-plus"></i> Ajouter un ingredient</h4>
+                <h4 (click)="addNewIngredient()" class="action"><i class="glyphicon glyphicon-plus"></i> Ajouter un ingredient</h4>
                 <table class="table table-striped">
                   <thead>
                     <tr>
