@@ -69,28 +69,33 @@ export class RecipeComponent implements OnInit {
 
     this.recipeToEdit.ingredientList.push(newIngredient);
   }
+
   // verifie si l'ingredient est utilisable pour la recette (quantité, date de peremption, s'il est present)
   isIngredientAvailaible(ingredient: Ingredient) {
-    let find = false;
     const today: Date = new Date();
     today.setHours(0, 0, 0, 0);
     for (let i = 0; i < this.fridgeIngredientList.length; i++) {
+      this.fridgeIngredientList[i].peremptionDate.setHours(0, 0, 0, 0);
       if (ingredient.name.toLowerCase() === this.fridgeIngredientList[i].name.toLowerCase()) {
-        find = true;
-        if ( ingredient.quantity > this.fridgeIngredientList[i].quantity ||
-          today > this.fridgeIngredientList[i].peremptionDate ) {
+        console.log(ingredient.name.toLowerCase() + ' : ' + this.fridgeIngredientList[i].name.toLowerCase());
+        console.log(ingredient.unity.toLowerCase() + ' : ' + this.fridgeIngredientList[i].unity.toLowerCase());
+        console.log(today + ' : ' + this.fridgeIngredientList[i].peremptionDate);
+        console.log(ingredient.quantity + ' : ' + this.fridgeIngredientList[i].quantity);
+      }
+      if (ingredient.name.toLowerCase() === this.fridgeIngredientList[i].name.toLowerCase()
+      && ingredient.unity.toLowerCase() === this.fridgeIngredientList[i].unity.toLowerCase()
+      && today <= this.fridgeIngredientList[i].peremptionDate
+      && ingredient.quantity <= this.fridgeIngredientList[i].quantity
+      ) {
+          console.log(ingredient.name + 'is Available');
           return true;
         }
       }
-    }
-    if (find === false) {
-      return true;
-    }
     return false;
   }
 
   // verifie si la recette est realisable ou s'il y a un probleme avec un ingredient
-  canRealizeRecipe(recipe: Recipe): boolean {
+  /*canRealizeRecipe(recipe: Recipe): boolean {
     const today: Date = new Date();
     let canRealize = true;
     today.setHours(0, 0, 0, 0);
@@ -104,6 +109,19 @@ export class RecipeComponent implements OnInit {
           }
         }
       }
+    }
+    if (this.fridgeIngredientList.length === 0) {
+      canRealize = false;
+    }
+    return canRealize;
+  }*/
+
+  canRealizeRecipe(recipe: Recipe): boolean {
+    let canRealize = true;
+      for (let i = 0; i < recipe.ingredientList.length; i++) {
+        if (!this.isIngredientAvailaible(recipe.ingredientList[i])) {
+            canRealize = false;
+        }
     }
     if (this.fridgeIngredientList.length === 0) {
       canRealize = false;

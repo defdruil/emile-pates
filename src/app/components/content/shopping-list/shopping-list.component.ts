@@ -77,6 +77,9 @@ export class ShoppingListComponent implements OnInit {
 
   deleteShoppingList(shoppingList: ShoppingList): void {
     this.shoppingListService.removeShoppingList(shoppingList);
+    if (shoppingList.id === this.shoppingListToEdit.id) {
+      this.shoppingListToEdit = null;
+    }
     this.confirmModal.hide();
   }
   addIngredientsToFridge(): void {
@@ -95,6 +98,8 @@ export class ShoppingListComponent implements OnInit {
     this.shoppingListToEdit = null;
     this.confirmModal.hide();
   }
+
+  // Pour edition dans le cas d'ajout d'une BDD
   editShoppingList(shoppingList: ShoppingList): void {
     this.shoppingListService.editShoppingList(shoppingList);
     this.confirmModal.hide();

@@ -12,8 +12,8 @@
     <div>
       <ul class="list-group list-group-flush">
         <li *ngFor ="let ingredient of recipe.ingredientList" class="list-group-item">
-          <div *ngIf="(ingredient.unity | uppercase) != 'NUMBER'" [ngClass]="{'red': isIngredientAvailaible(ingredient)}">{{ingredient.name}} {{ingredient.quantity}} {{ingredient.unity | uppercase}}</div>
-          <div *ngIf="(ingredient.unity | uppercase) == 'NUMBER'" [ngClass]="{'red': isIngredientAvailaible(ingredient)}">{{ingredient.quantity}} {{ingredient.name}}</div>
+          <div *ngIf="(ingredient.unity | uppercase) != 'NUMBER'" [ngClass]="{'red': !isIngredientAvailaible(ingredient)}">{{ingredient.name}} {{ingredient.quantity}} {{ingredient.unity | uppercase}}</div>
+          <div *ngIf="(ingredient.unity | uppercase) == 'NUMBER'" [ngClass]="{'red': !isIngredientAvailaible(ingredient)}">{{ingredient.quantity}} {{ingredient.name}}</div>
         </li>
       </ul>
       <p class="card-text recipeDescription">{{recipe.description}}</p>

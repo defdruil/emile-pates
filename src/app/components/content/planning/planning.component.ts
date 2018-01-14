@@ -6,6 +6,7 @@ import { PlanningService } from '../../../services/implementations/planning.serv
 import { Ingredient } from '../../../models/ingredient';
 import { ShoppingList } from '../../../models/shopping-list';
 import { ShoppingListService } from '../../../services/implementations/shopping-list.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-planning',
   templateUrl: './planning.component.html',
@@ -20,7 +21,8 @@ export class PlanningComponent implements OnInit {
 
   constructor(private recipeService: RecipeService,
     private planningService: PlanningService,
-    private shoppingListService: ShoppingListService) {}
+    private shoppingListService: ShoppingListService,
+    private router: Router) {}
 
   ngOnInit() {
     this.editing = false;
@@ -81,7 +83,7 @@ export class PlanningComponent implements OnInit {
     let shoppingList: ShoppingList;
     shoppingList = {id: 0, name: 'Ma liste de courses de la semaine "' +  planning.name + '"', ingredientList: []};
 
-    console.log("planning:", planning);
+    //console.log("planning:", planning);
     // une liste d'ingredients est créée en ajoutant tout les ingredients des recettes de chaque repas de chaque jours
     for (let i = 0; i < planning.meals.length; i++) {
       const meal = planning.meals[i];
@@ -136,5 +138,6 @@ export class PlanningComponent implements OnInit {
     // une fois l'operation effectué on peut ajouter a la liste de courses notre liste d'ingredients.
     this.shoppingListService.addShoppingList(shoppingList);
     this.initPlanning();
+    this.router.navigate(['/shopping-list']);
   }
 }
